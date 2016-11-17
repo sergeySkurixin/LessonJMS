@@ -19,8 +19,8 @@ public class QueueConsumer {
         try (Connection connection = connectionFactory.createConnection()) {
             // Если мы читаем сообщения, то не забываем делать start у соединения
             connection.start();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-//            Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
+//            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
 
             MessageConsumer consumer = session.createConsumer(queue);
 
@@ -53,7 +53,7 @@ public class QueueConsumer {
 
             System.out.println(message.getText());
 
-//            message.acknowledge();
+            message.acknowledge();
         } catch (JMSException e) {
             throw new ProjectException(e);
         }
